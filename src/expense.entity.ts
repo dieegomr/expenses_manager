@@ -1,4 +1,8 @@
-import { InvalidAmountError, InvalidDateError } from './expense.errors';
+import {
+  InvalidAmountError,
+  InvalidDateError,
+  InvalidDescriptionError,
+} from './expense.errors';
 import { Either, left, right } from './shared/either';
 
 export type ExpenseProps = {
@@ -23,7 +27,7 @@ export class Expense {
     this._id = id;
   }
 
-  private static validateExpense(
+  private static validateExpenseProps(
     props: ExpenseProps
   ): Either<InvalidAmountError | InvalidDateError, ExpenseProps> {
     if (props.amount < 0) return left(new InvalidAmountError());
@@ -31,6 +35,8 @@ export class Expense {
     currentDate.setHours(0, 0, 0, 0);
     if (props.date.getTime() > currentDate.getTime())
       return left(new InvalidDateError());
+    if (props.description.length > 191)
+      return left(new InvalidDescriptionError());
 
     return right(props);
   }
@@ -38,7 +44,7 @@ export class Expense {
   public static createWithoutId(
     props: ExpenseProps
   ): Either<InvalidAmountError | InvalidDateError, Expense> {
-    const propsOrError = Expense.validateExpense(props);
+    const propsOrError = Expense.validateExpenseProps(props);
     if (propsOrError.isLeft()) return left(propsOrError.value);
     return right(new Expense(propsOrError.value));
   }
@@ -47,7 +53,7 @@ export class Expense {
     props: ExpenseProps,
     id: string
   ): Either<InvalidAmountError, Expense> {
-    const propsOrError = Expense.validateExpense(props);
+    const propsOrError = Expense.validateExpenseProps(props);
     if (propsOrError.isLeft()) return left(propsOrError.value);
     return right(new Expense(propsOrError.value, id));
   }

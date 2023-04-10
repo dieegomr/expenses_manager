@@ -9,3 +9,9 @@ export class InvalidDateError extends Error {
     super('An expense date must be before the current one');
   }
 }
+
+export class InvalidDescriptionError extends Error {
+  constructor() {
+    super('An description must have a maximum of 191 character');
+  }
+}

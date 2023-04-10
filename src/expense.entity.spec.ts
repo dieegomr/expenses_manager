@@ -1,5 +1,9 @@
 import { Expense } from './expense.entity';
-import { InvalidAmountError, InvalidDateError } from './expense.errors';
+import {
+  InvalidAmountError,
+  InvalidDateError,
+  InvalidDescriptionError,
+} from './expense.errors';
 
 describe('Expense Tests', () => {
   it('should create a expense with id', function () {
@@ -120,5 +124,22 @@ describe('Expense Tests', () => {
     const expense = Expense.createWithId(props, 'some_id');
 
     expect(expense.value).toBeInstanceOf(InvalidDateError);
+  });
+
+  it('should not allow to create an expense description longer then 191 characters', function () {
+    const STRING_192_CHARACTERS =
+      'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus..';
+    const props = {
+      description: STRING_192_CHARACTERS,
+      date: new Date(2022, 3, 11),
+      user: 'some_user_id',
+      amount: 100,
+    };
+
+    const expenseWithId = Expense.createWithId(props, 'some_id');
+    const expenseNoId = Expense.createWithoutId(props);
+
+    expect(expenseWithId.value).toBeInstanceOf(InvalidDescriptionError);
+    expect(expenseNoId.value).toBeInstanceOf(InvalidDescriptionError);
   });
 });
