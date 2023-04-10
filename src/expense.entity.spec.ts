@@ -1,4 +1,5 @@
 import { Expense } from './expense.entity';
+import { InvalidAmountError } from './expense.errors';
 
 describe('Expense Tests', () => {
   it('should create a expense with id', function () {
@@ -8,7 +9,10 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       amount: 100,
     };
-    const expense = new Expense(props, 'some_expense_id');
+
+    const expenseOrError = Expense.createWithId(props, 'some_expense_id');
+    expect(expenseOrError.isRight()).toBe(true);
+    const expense = expenseOrError.value as Expense;
 
     expect(expense.user).toBe('some_user_id');
     expect(expense.description).toBe('some_description');
@@ -24,7 +28,10 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       amount: 100,
     };
-    const expenseNoId = new Expense(props);
+
+    const expenseOrError = Expense.createWithoutId(props);
+    expect(expenseOrError.isRight()).toBe(true);
+    const expenseNoId = expenseOrError.value as Expense;
 
     expect(expenseNoId.user).toBe('some_user_id');
     expect(expenseNoId.description).toBe('some_description');
@@ -39,7 +46,10 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       amount: 100,
     };
-    const expense = new Expense(props, 'some_expense_id');
+
+    const expenseOrError = Expense.createWithId(props, 'some_expense_id');
+    expect(expenseOrError.isRight()).toBe(true);
+    const expense = expenseOrError.value as Expense;
 
     expense.updateDescription('updated_description');
 
@@ -53,7 +63,10 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       amount: 100,
     };
-    const expense = new Expense(props, 'some_expense_id');
+
+    const expenseOrError = Expense.createWithId(props, 'some_expense_id');
+    expect(expenseOrError.isRight()).toBe(true);
+    const expense = expenseOrError.value as Expense;
 
     const newDate = { day: 21, month: 1, year: 2021 };
 
@@ -71,10 +84,28 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       amount: 100,
     };
-    const expense = new Expense(props, 'some_expense_id');
+
+    const expenseOrError = Expense.createWithId(props, 'some_expense_id');
+    expect(expenseOrError.isRight()).toBe(true);
+    const expense = expenseOrError.value as Expense;
 
     expense.updateAmount(120);
 
     expect(expense.amount).toBe(120);
+  });
+
+  it('should allow to create expense only with positive value amount', function () {
+    const props = {
+      description: 'some_description',
+      date: new Date(2020, 9, 15),
+      user: 'some_user_id',
+      amount: -100,
+    };
+
+    const expenseWithId = Expense.createWithId(props, 'some_id');
+    const expenseWithoutId = Expense.createWithoutId(props);
+
+    expect(expenseWithId.value).toBeInstanceOf(InvalidAmountError);
+    expect(expenseWithoutId.value).toBeInstanceOf(InvalidAmountError);
   });
 });
