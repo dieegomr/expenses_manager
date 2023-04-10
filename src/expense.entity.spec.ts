@@ -24,11 +24,11 @@ describe('Expense Tests', () => {
       user: 'some_user_id',
       value: 100,
     };
-    const expense = new Expense(props);
+    const expenseNoId = new Expense(props);
 
-    expect(expense.props.user).toBe('some_user_id');
-    expect(expense.props.desription).toBe('some_description');
-    expect(expense.props.date).toBeInstanceOf(Date);
-    expect(expense.props.value).toBe(100);
+    expect(expenseNoId.props.user).toBe('some_user_id');
+    expect(expenseNoId.props.desription).toBe('some_description');
+    expect(expenseNoId.props.date).toBeInstanceOf(Date);
+    expect(expenseNoId.props.value).toBe(100);
   });
 });
