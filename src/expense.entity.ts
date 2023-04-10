@@ -1,4 +1,4 @@
-import { InvalidAmountError } from './expense.errors';
+import { InvalidAmountError, InvalidDateError } from './expense.errors';
 import { Either, left, right } from './shared/either';
 
 export type ExpenseProps = {
@@ -27,6 +27,7 @@ export class Expense {
     props: ExpenseProps
   ): Either<InvalidAmountError, Expense> {
     if (props.amount < 0) return left(new InvalidAmountError());
+    if (props.date > new Date()) return left(new InvalidDateError());
     return right(new Expense(props));
   }
 
@@ -35,6 +36,11 @@ export class Expense {
     id: string
   ): Either<InvalidAmountError, Expense> {
     if (props.amount < 0) return left(new InvalidAmountError());
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    if (props.date.getTime() > currentDate.getTime())
+      return left(new InvalidDateError());
+
     return right(new Expense(props, id));
   }
 

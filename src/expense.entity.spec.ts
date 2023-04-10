@@ -1,5 +1,5 @@
 import { Expense } from './expense.entity';
-import { InvalidAmountError } from './expense.errors';
+import { InvalidAmountError, InvalidDateError } from './expense.errors';
 
 describe('Expense Tests', () => {
   it('should create a expense with id', function () {
@@ -107,5 +107,18 @@ describe('Expense Tests', () => {
 
     expect(expenseWithId.value).toBeInstanceOf(InvalidAmountError);
     expect(expenseWithoutId.value).toBeInstanceOf(InvalidAmountError);
+  });
+
+  it('should allow to create expense only with date before the current one', function () {
+    const props = {
+      description: 'some_description',
+      date: new Date(2024, 3, 11),
+      user: 'some_user_id',
+      amount: 100,
+    };
+
+    const expense = Expense.createWithId(props, 'some_id');
+
+    expect(expense.value).toBeInstanceOf(InvalidDateError);
   });
 });
