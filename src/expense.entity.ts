@@ -5,6 +5,12 @@ export type ExpenseProps = {
   value: number;
 };
 
+export type DateProps = {
+  day: number;
+  month: number;
+  year: number;
+};
+
 export class Expense {
   private _id?: string;
   private _props: ExpenseProps;
@@ -38,7 +44,15 @@ export class Expense {
     this._props.description = description;
   }
 
+  private set date(date: Date) {
+    this._props.date = date;
+  }
+
   public updateDescription(description: string) {
     this.description = description;
+  }
+
+  public updateDate(date: DateProps) {
+    this.date = new Date(date.year, date.month - 1, date.day);
   }
 }
