@@ -6,14 +6,14 @@ describe('Expense Tests', () => {
       description: 'some_description',
       date: new Date(),
       user: 'some_user_id',
-      value: 100,
+      amount: 100,
     };
     const expense = new Expense(props, 'some_expense_id');
 
     expect(expense.user).toBe('some_user_id');
     expect(expense.description).toBe('some_description');
     expect(expense.date).toBeInstanceOf(Date);
-    expect(expense.value).toBe(100);
+    expect(expense.amount).toBe(100);
     expect(expense.id).toBe('some_expense_id');
   });
 
@@ -22,14 +22,14 @@ describe('Expense Tests', () => {
       description: 'some_description',
       date: new Date(),
       user: 'some_user_id',
-      value: 100,
+      amount: 100,
     };
     const expenseNoId = new Expense(props);
 
     expect(expenseNoId.user).toBe('some_user_id');
     expect(expenseNoId.description).toBe('some_description');
     expect(expenseNoId.date).toBeInstanceOf(Date);
-    expect(expenseNoId.value).toBe(100);
+    expect(expenseNoId.amount).toBe(100);
   });
 
   it('should update description', function () {
@@ -37,7 +37,7 @@ describe('Expense Tests', () => {
       description: 'some_description',
       date: new Date(),
       user: 'some_user_id',
-      value: 100,
+      amount: 100,
     };
     const expense = new Expense(props, 'some_expense_id');
 
@@ -51,7 +51,7 @@ describe('Expense Tests', () => {
       description: 'some_description',
       date: new Date(2020, 9, 15),
       user: 'some_user_id',
-      value: 100,
+      amount: 100,
     };
     const expense = new Expense(props, 'some_expense_id');
 

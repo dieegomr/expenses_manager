@@ -2,7 +2,7 @@ export type ExpenseProps = {
   description: string;
   date: Date;
   user: string;
-  value: number;
+  amount: number;
 };
 
 export type DateProps = {
@@ -36,8 +36,8 @@ export class Expense {
     return this._props.user;
   }
 
-  public get value() {
-    return this._props.value;
+  public get amount() {
+    return this._props.amount;
   }
 
   private set description(description: string) {
