@@ -48,11 +48,19 @@ export class Expense {
     this._props.date = date;
   }
 
+  private set amount(amount: number) {
+    this._props.amount = amount;
+  }
+
   public updateDescription(description: string) {
     this.description = description;
   }
 
   public updateDate(date: DateProps) {
     this.date = new Date(date.year, date.month - 1, date.day);
+  }
+
+  public updateAmount(amount: number) {
+    this.amount = amount;
   }
 }

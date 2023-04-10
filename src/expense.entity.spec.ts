@@ -63,4 +63,18 @@ describe('Expense Tests', () => {
     expect(expense.date.getMonth()).toBe(0);
     expect(expense.date.getFullYear()).toBe(2021);
   });
+
+  it('should update amount', function () {
+    const props = {
+      description: 'some_description',
+      date: new Date(2020, 9, 15),
+      user: 'some_user_id',
+      amount: 100,
+    };
+    const expense = new Expense(props, 'some_expense_id');
+
+    expense.updateAmount(120);
+
+    expect(expense.amount).toBe(120);
+  });
 });
