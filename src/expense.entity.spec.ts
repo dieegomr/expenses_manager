@@ -5,7 +5,7 @@ describe('Expense Tests', () => {
   it('should create a expense with id', function () {
     const props = {
       description: 'some_description',
-      date: new Date(),
+      date: new Date(2023, 3, 10),
       user: 'some_user_id',
       amount: 100,
     };
@@ -24,7 +24,7 @@ describe('Expense Tests', () => {
   it('should create a expense without id', function () {
     const props = {
       description: 'some_description',
-      date: new Date(),
+      date: new Date(2023, 3, 10),
       user: 'some_user_id',
       amount: 100,
     };
@@ -42,7 +42,7 @@ describe('Expense Tests', () => {
   it('should update description', function () {
     const props = {
       description: 'some_description',
-      date: new Date(),
+      date: new Date(2023, 3, 10),
       user: 'some_user_id',
       amount: 100,
     };

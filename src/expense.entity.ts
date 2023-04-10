@@ -23,25 +23,33 @@ export class Expense {
     this._id = id;
   }
 
-  public static createWithoutId(
+  private static validateExpense(
     props: ExpenseProps
-  ): Either<InvalidAmountError, Expense> {
-    if (props.amount < 0) return left(new InvalidAmountError());
-    if (props.date > new Date()) return left(new InvalidDateError());
-    return right(new Expense(props));
-  }
-
-  public static createWithId(
-    props: ExpenseProps,
-    id: string
-  ): Either<InvalidAmountError, Expense> {
+  ): Either<InvalidAmountError | InvalidDateError, ExpenseProps> {
     if (props.amount < 0) return left(new InvalidAmountError());
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
     if (props.date.getTime() > currentDate.getTime())
       return left(new InvalidDateError());
 
-    return right(new Expense(props, id));
+    return right(props);
+  }
+
+  public static createWithoutId(
+    props: ExpenseProps
+  ): Either<InvalidAmountError | InvalidDateError, Expense> {
+    const propsOrError = Expense.validateExpense(props);
+    if (propsOrError.isLeft()) return left(propsOrError.value);
+    return right(new Expense(propsOrError.value));
+  }
+
+  public static createWithId(
+    props: ExpenseProps,
+    id: string
+  ): Either<InvalidAmountError, Expense> {
+    const propsOrError = Expense.validateExpense(props);
+    if (propsOrError.isLeft()) return left(propsOrError.value);
+    return right(new Expense(propsOrError.value, id));
   }
 
   public updateDescription(description: string) {
