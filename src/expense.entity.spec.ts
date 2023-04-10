@@ -31,4 +31,18 @@ describe('Expense Tests', () => {
     expect(expenseNoId.date).toBeInstanceOf(Date);
     expect(expenseNoId.value).toBe(100);
   });
+
+  it('should update description', function () {
+    const props = {
+      description: 'some_description',
+      date: new Date(),
+      user: 'some_user_id',
+      value: 100,
+    };
+    const expense = new Expense(props, 'some_expense_id');
+
+    expense.updateDescription('updated_description');
+
+    expect(expense.description).toBe('updated_description');
+  });
 });

@@ -37,4 +37,8 @@ export class Expense {
   private set description(description: string) {
     this._props.description = description;
   }
+
+  public updateDescription(description: string) {
+    this.description = description;
+  }
 }
