@@ -24,6 +24,12 @@ export type ValidationExpenseProps = {
   id?: string;
 };
 
+export type UpdateExpenseProps = {
+  description?: string;
+  date?: Date;
+  amount?: number;
+};
+
 export type DateProps = {
   day: number;
   month: number;
@@ -89,16 +95,27 @@ export class Expense {
     return right(new Expense(props, id));
   }
 
-  public updateDescription(description: string) {
-    this.description = description;
+  public updateExpense(input: UpdateExpenseProps) {
+    this.updateAmount(input);
+    this.updateDate(input);
+    this.updateDescription(input);
   }
 
-  public updateDate(date: DateProps) {
-    this.date = new Date(date.year, date.month - 1, date.day);
+  private updateDescription(input: UpdateExpenseProps) {
+    if (input.description) this.description = input.description;
   }
 
-  public updateAmount(amount: number) {
-    this.amount = amount;
+  private updateDate(input: UpdateExpenseProps) {
+    if (input.date) {
+      const day = input.date?.getDate();
+      const month = input.date?.getMonth();
+      const year = input.date?.getFullYear();
+      this.date = new Date(year, month - 1, day);
+    }
+  }
+
+  private updateAmount(input: UpdateExpenseProps) {
+    if (input.amount) this.amount = input.amount;
   }
 
   public get id() {

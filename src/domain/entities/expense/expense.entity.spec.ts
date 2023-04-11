@@ -55,7 +55,7 @@ describe('Expense Tests', () => {
     expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
-    expense.updateDescription('updated_description');
+    expense.updateExpense({ description: 'updated_description' });
 
     expect(expense.description).toBe('updated_description');
   });
@@ -72,9 +72,7 @@ describe('Expense Tests', () => {
     expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
-    const newDate = { day: 21, month: 1, year: 2021 };
-
-    expense.updateDate(newDate);
+    expense.updateExpense({ date: new Date(2021, 1, 21) });
 
     expect(expense.date.getDate()).toBe(21);
     expect(expense.date.getMonth()).toBe(0);
@@ -93,7 +91,7 @@ describe('Expense Tests', () => {
     expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
-    expense.updateAmount(120);
+    expense.updateExpense({ amount: 120 });
 
     expect(expense.amount).toBe(120);
   });
