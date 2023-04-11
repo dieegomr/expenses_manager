@@ -16,8 +16,4 @@ export class ExpenseDate {
 
     return right(new ExpenseDate(date));
   }
-
-  public get date() {
-    return this._date;
-  }
 }

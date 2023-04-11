@@ -13,8 +13,4 @@ export class Amount {
 
     return right(new Amount(value));
   }
-
-  public get value() {
-    return this._value;
-  }
 }

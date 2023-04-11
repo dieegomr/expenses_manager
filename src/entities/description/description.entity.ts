@@ -17,8 +17,4 @@ export class Description {
 
     return right(new Description(text));
   }
-
-  public get text() {
-    return this._text;
-  }
 }
