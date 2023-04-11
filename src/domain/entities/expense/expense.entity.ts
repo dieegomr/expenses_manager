@@ -95,10 +95,20 @@ export class Expense {
     return right(new Expense(props, id));
   }
 
-  public updateExpense(input: UpdateExpenseProps) {
+  public updateExpense(
+    input: UpdateExpenseProps
+  ): Either<
+    InvalidAmountError | InvalidDateError | InvalidDescriptionError,
+    true
+  > {
+    const inputOrError = Expense.validateExpenseProps(input);
+
+    if (inputOrError.isLeft()) return left(inputOrError.value);
     this.updateAmount(input);
     this.updateDate(input);
     this.updateDescription(input);
+
+    return right(true);
   }
 
   private updateDescription(input: UpdateExpenseProps) {
