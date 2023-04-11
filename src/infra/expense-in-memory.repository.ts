@@ -30,4 +30,10 @@ export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {
 
     return this.items[index];
   }
+
+  async deleteById(id: string): Promise<void> {
+    const index = this.items.findIndex((item) => item.id === id);
+
+    this.items.splice(index, 1);
+  }
 }

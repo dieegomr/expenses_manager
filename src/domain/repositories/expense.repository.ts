@@ -8,4 +8,5 @@ export interface ExpenseRepositoryInterface {
   findById(id: string): Promise<Expense | null>;
   getAll(): Promise<Expense[]>;
   update(expense: Expense): Promise<Expense>;
+  deleteById(id: string): Promise<void>;
 }
