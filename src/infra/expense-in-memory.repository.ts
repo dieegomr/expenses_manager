@@ -1,4 +1,7 @@
-import { Expense } from '../domain/entities/expense/expense.entity';
+import {
+  Expense,
+  UpdateExpenseProps,
+} from '../domain/entities/expense/expense.entity';
 import { ExpenseRepositoryInterface } from '../domain/repositories/expense.repository';
 
 export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {
@@ -18,5 +21,13 @@ export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {
 
   async getAll(): Promise<Expense[]> {
     return this.items;
+  }
+
+  async update(expense: Expense): Promise<Expense> {
+    const index = this.items.findIndex((item) => item.id === expense.id);
+
+    this.items[index] = expense;
+
+    return this.items[index];
   }
 }
