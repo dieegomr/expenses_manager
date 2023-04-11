@@ -15,4 +15,8 @@ export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {
 
     return expense;
   }
+
+  async getAll(): Promise<Expense[]> {
+    return this.items;
+  }
 }
