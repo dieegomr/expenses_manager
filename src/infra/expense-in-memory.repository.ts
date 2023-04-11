@@ -1,7 +1,4 @@
-import {
-  Expense,
-  UpdateExpenseProps,
-} from '../domain/entities/expense/expense.entity';
+import { Expense } from '../domain/entities/expense/expense.entity';
 import { ExpenseRepositoryInterface } from '../domain/repositories/expense.repository';
 
 export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {

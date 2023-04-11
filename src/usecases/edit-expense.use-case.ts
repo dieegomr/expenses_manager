@@ -1,4 +1,3 @@
-import { Expense } from '../domain/entities/expense/expense.entity';
 import {
   InvalidDescriptionError,
   InvalidAmountError,
