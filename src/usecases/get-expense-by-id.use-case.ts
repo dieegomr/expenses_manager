@@ -8,11 +8,19 @@ export class GetExpenseByIdUseCase {
 
   async execute(
     expenseId: string
-  ): Promise<Either<ExpenseNotFoundError, Expense>> {
+  ): Promise<Either<ExpenseNotFoundError, ExpenseOutput>> {
     const expense = await this.expenseRepo.findById(expenseId);
 
     if (!expense) return left(new ExpenseNotFoundError());
 
-    return right(expense);
+    return right(expense.toJSON());
   }
 }
+
+export type ExpenseOutput = {
+  id: string;
+  description: string;
+  date: Date;
+  user: string;
+  amount: number;
+};
