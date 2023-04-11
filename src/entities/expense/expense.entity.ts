@@ -1,4 +1,5 @@
 import { Either, left, right } from '../../shared/either';
+import { Description } from '../description/description.entity';
 import {
   InvalidAmountError,
   InvalidDateError,
@@ -35,8 +36,10 @@ export class Expense {
     currentDate.setHours(0, 0, 0, 0);
     if (props.date.getTime() > currentDate.getTime())
       return left(new InvalidDateError());
-    if (props.description.length > 191)
-      return left(new InvalidDescriptionError());
+
+    const descriptionOrError = Description.validate(props.description);
+    if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
+    const description = descriptionOrError.value.text;
 
     return right(props);
   }
