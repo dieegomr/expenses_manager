@@ -6,6 +6,7 @@ import {
   InvalidAmountError,
   InvalidDateError,
   InvalidDescriptionError,
+  InvalidUserIdError,
 } from './expense.errors';
 
 export type ExpenseProps = {
@@ -13,6 +14,14 @@ export type ExpenseProps = {
   date: Date;
   user: string;
   amount: number;
+};
+
+export type ValidationExpenseProps = {
+  description?: string;
+  date?: Date;
+  user?: string;
+  amount?: number;
+  id?: string;
 };
 
 export type DateProps = {
@@ -30,20 +39,32 @@ export class Expense {
     this._id = id;
   }
 
-  private static validateExpenseProps(
-    props: ExpenseProps
+  public static validateExpenseProps(
+    props: ValidationExpenseProps
   ): Either<
-    InvalidAmountError | InvalidDateError | InvalidDescriptionError,
-    ExpenseProps
+    | InvalidAmountError
+    | InvalidDateError
+    | InvalidDescriptionError
+    | InvalidUserIdError,
+    ValidationExpenseProps
   > {
-    const amountOrError = Amount.validate(props.amount);
-    if (amountOrError.isLeft()) return left(amountOrError.value);
+    if (props.amount) {
+      const amountOrError = Amount.validate(props.amount);
+      if (amountOrError.isLeft()) return left(amountOrError.value);
+    }
 
-    const expenseDateOrError = ExpenseDate.validate(props.date);
-    if (expenseDateOrError.isLeft()) return left(expenseDateOrError.value);
+    if (props.date) {
+      const expenseDateOrError = ExpenseDate.validate(props.date);
+      if (expenseDateOrError.isLeft()) return left(expenseDateOrError.value);
+    }
 
-    const descriptionOrError = Description.validate(props.description);
-    if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
+    if (props.description) {
+      const descriptionOrError = Description.validate(props.description);
+      if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
+    }
+
+    if (props.id && typeof props.id !== 'string')
+      return left(new InvalidUserIdError());
 
     return right(props);
   }
@@ -65,7 +86,7 @@ export class Expense {
   > {
     const propsOrError = Expense.validateExpenseProps(props);
     if (propsOrError.isLeft()) return left(propsOrError.value);
-    return right(new Expense(propsOrError.value, id));
+    return right(new Expense(props, id));
   }
 
   public updateDescription(description: string) {
