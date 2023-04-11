@@ -1,4 +1,4 @@
-import { Either, left, right } from '../../shared/either';
+import { Either, left, right } from '../../../shared/either';
 import { InvalidDescriptionError } from '../expense/expense.errors';
 
 export class Description {

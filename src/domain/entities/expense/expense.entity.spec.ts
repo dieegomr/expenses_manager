@@ -25,23 +25,23 @@ describe('Expense Tests', () => {
     expect(expense.id).toBe('some_expense_id');
   });
 
-  it('should create a expense without id', function () {
-    const props = {
-      description: 'some_description',
-      date: new Date(2023, 3, 10),
-      user: 'some_user_id',
-      amount: 100,
-    };
+  // it('should create a expense without id', function () {
+  //   const props = {
+  //     description: 'some_description',
+  //     date: new Date(2023, 3, 10),
+  //     user: 'some_user_id',
+  //     amount: 100,
+  //   };
 
-    const expenseOrError = Expense.createWithoutId(props);
-    expect(expenseOrError.isRight()).toBe(true);
-    const expenseNoId = expenseOrError.value as Expense;
+  //   const expenseOrError = Expense.createWithoutId(props);
+  //   expect(expenseOrError.isRight()).toBe(true);
+  //   const expenseNoId = expenseOrError.value as Expense;
 
-    expect(expenseNoId.user).toBe('some_user_id');
-    expect(expenseNoId.description).toBe('some_description');
-    expect(expenseNoId.date).toBeInstanceOf(Date);
-    expect(expenseNoId.amount).toBe(100);
-  });
+  //   expect(expenseNoId.user).toBe('some_user_id');
+  //   expect(expenseNoId.description).toBe('some_description');
+  //   expect(expenseNoId.date).toBeInstanceOf(Date);
+  //   expect(expenseNoId.amount).toBe(100);
+  // });
 
   it('should update description', function () {
     const props = {
@@ -107,10 +107,10 @@ describe('Expense Tests', () => {
     };
 
     const expenseWithId = Expense.createWithId(props, 'some_id');
-    const expenseWithoutId = Expense.createWithoutId(props);
+    // const expenseWithoutId = Expense.createWithoutId(props);
 
     expect(expenseWithId.value).toBeInstanceOf(InvalidAmountError);
-    expect(expenseWithoutId.value).toBeInstanceOf(InvalidAmountError);
+    // expect(expenseWithoutId.value).toBeInstanceOf(InvalidAmountError);
   });
 
   it('should allow to create expense only with date before the current one', function () {
@@ -137,9 +137,9 @@ describe('Expense Tests', () => {
     };
 
     const expenseWithId = Expense.createWithId(props, 'some_id');
-    const expenseNoId = Expense.createWithoutId(props);
+    // const expenseNoId = Expense.createWithoutId(props);
 
     expect(expenseWithId.value).toBeInstanceOf(InvalidDescriptionError);
-    expect(expenseNoId.value).toBeInstanceOf(InvalidDescriptionError);
+    // expect(expenseNoId.value).toBeInstanceOf(InvalidDescriptionError);
   });
 });

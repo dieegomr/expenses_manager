@@ -1,5 +1,5 @@
-import { Either, left, right } from '../../shared/either';
 import { InvalidAmountError } from '../expense/expense.errors';
+import { Either, left, right } from '../../../shared/either';
 
 export class Amount {
   private _value: number;

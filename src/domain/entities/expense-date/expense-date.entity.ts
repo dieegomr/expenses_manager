@@ -1,4 +1,4 @@
-import { Either, left, right } from '../../shared/either';
+import { Either, left, right } from '../../../shared/either';
 import { InvalidDateError } from '../expense/expense.errors';
 
 export class ExpenseDate {
