@@ -1,9 +1,9 @@
+import { Either, left, right } from '../../shared/either';
 import {
   InvalidAmountError,
   InvalidDateError,
   InvalidDescriptionError,
 } from './expense.errors';
-import { Either, left, right } from './shared/either';
 
 export type ExpenseProps = {
   description: string;
