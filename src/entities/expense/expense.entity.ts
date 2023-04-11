@@ -1,5 +1,7 @@
 import { Either, left, right } from '../../shared/either';
+import { Amount } from '../amount/amount.entity';
 import { Description } from '../description/description.entity';
+import { ExpenseDate } from '../expense-date/expense-date.entity';
 import {
   InvalidAmountError,
   InvalidDateError,
@@ -30,16 +32,18 @@ export class Expense {
 
   private static validateExpenseProps(
     props: ExpenseProps
-  ): Either<InvalidAmountError | InvalidDateError, ExpenseProps> {
-    if (props.amount < 0) return left(new InvalidAmountError());
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    if (props.date.getTime() > currentDate.getTime())
-      return left(new InvalidDateError());
+  ): Either<
+    InvalidAmountError | InvalidDateError | InvalidDescriptionError,
+    ExpenseProps
+  > {
+    const amountOrError = Amount.validate(props.amount);
+    if (amountOrError.isLeft()) return left(amountOrError.value);
+
+    const expenseDateOrError = ExpenseDate.validate(props.date);
+    if (expenseDateOrError.isLeft()) return left(expenseDateOrError.value);
 
     const descriptionOrError = Description.validate(props.description);
     if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
-    const description = descriptionOrError.value.text;
 
     return right(props);
   }
