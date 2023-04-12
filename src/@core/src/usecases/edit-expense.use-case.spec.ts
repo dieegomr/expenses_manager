@@ -12,7 +12,7 @@ describe('EditExpenseUseCase Tests', function () {
 
     const expenseOrError = await createUseCase.execute({
       description: 'expense description',
-      date: new Date(2022, 3, 10),
+      date: '2022-04-10',
       amount: 120,
       user: 'userID',
     });
@@ -35,7 +35,7 @@ describe('EditExpenseUseCase Tests', function () {
 
     const expenseOrError = await createUseCase.execute({
       description: 'expense description',
-      date: new Date(2022, 3, 10),
+      date: '2022-04-10',
       amount: 120,
       user: 'userID',
     });

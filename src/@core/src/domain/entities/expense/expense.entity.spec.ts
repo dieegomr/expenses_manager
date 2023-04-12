@@ -9,18 +9,22 @@ describe('Expense Tests', () => {
   it('should create a expense with id', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2023, 3, 10),
+      date: '2022-3-10',
       user: 'some_user_id',
       amount: 100,
     };
 
+    // console.log(props.date.getDate());
+    // console.log(props.date.getMonth());
+    // console.log(props.date.getFullYear());
+    // console.log(typeof props.date.toLocaleDateString());
     const expenseOrError = Expense.createWithId(props, 'some_expense_id');
     expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
     expect(expense.user).toBe('some_user_id');
     expect(expense.description).toBe('some_description');
-    expect(expense.date).toBeInstanceOf(Date);
+    expect(expense.date).toBe('2022-3-10');
     expect(expense.amount).toBe(100);
     expect(expense.id).toBe('some_expense_id');
   });
@@ -46,7 +50,7 @@ describe('Expense Tests', () => {
   it('should update description', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2023, 3, 10),
+      date: '2023-03-10',
       user: 'some_user_id',
       amount: 100,
     };
@@ -63,7 +67,7 @@ describe('Expense Tests', () => {
   it('should update date', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2020, 9, 15),
+      date: '2022-8-11',
       user: 'some_user_id',
       amount: 100,
     };
@@ -72,17 +76,15 @@ describe('Expense Tests', () => {
     expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
-    expense.updateExpense({ date: new Date(2021, 1, 21) });
+    expense.updateExpense({ date: '2021-1-21' });
 
-    expect(expense.date.getDate()).toBe(21);
-    expect(expense.date.getMonth()).toBe(0);
-    expect(expense.date.getFullYear()).toBe(2021);
+    expect(expense.date).toBe('2021-1-21');
   });
 
   it('should update amount', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2020, 9, 15),
+      date: '2020-10-15',
       user: 'some_user_id',
       amount: 100,
     };
@@ -99,7 +101,7 @@ describe('Expense Tests', () => {
   it('should allow to create expense only with positive value amount', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2020, 9, 15),
+      date: '2020-10-15',
       user: 'some_user_id',
       amount: -100,
     };
@@ -114,7 +116,7 @@ describe('Expense Tests', () => {
   it('should allow to create expense only with date before the current one', function () {
     const props = {
       description: 'some_description',
-      date: new Date(2024, 3, 11),
+      date: '2024-04-11',
       user: 'some_user_id',
       amount: 100,
     };
@@ -129,7 +131,7 @@ describe('Expense Tests', () => {
       'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus..';
     const props = {
       description: STRING_192_CHARACTERS,
-      date: new Date(2022, 3, 11),
+      date: '2022-09-12',
       user: 'some_user_id',
       amount: 100,
     };

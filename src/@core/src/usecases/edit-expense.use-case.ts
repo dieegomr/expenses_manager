@@ -12,7 +12,7 @@ export class EditExpenseUseCase {
 
   async execute(
     id: string,
-    input: EditExpenseInput
+    input: EditExpenseInput,
   ): Promise<
     Either<
       | InvalidAmountError
@@ -36,14 +36,14 @@ export class EditExpenseUseCase {
 
 type EditExpenseInput = {
   description?: string;
-  date?: Date;
+  date?: string;
   amount?: number;
 };
 
 type EditExpenseOutput = {
   id: string;
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };

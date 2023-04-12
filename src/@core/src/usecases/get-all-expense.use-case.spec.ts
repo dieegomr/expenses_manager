@@ -10,21 +10,21 @@ describe('GetAllExpensesUseCase Tests', function () {
 
     await createExpenseUseCase.execute({
       description: 'expense description 1',
-      date: new Date(2022, 3, 10),
+      date: '2023-04-10',
       amount: 121,
       user: 'userID',
     });
 
     await createExpenseUseCase.execute({
       description: 'expense description 2',
-      date: new Date(2022, 3, 10),
+      date: '2023-04-10',
       amount: 121,
       user: 'userID',
     });
 
     await createExpenseUseCase.execute({
       description: 'expense description 3',
-      date: new Date(2022, 3, 10),
+      date: '2023-04-10',
       amount: 121,
       user: 'userID',
     });

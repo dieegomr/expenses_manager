@@ -2,16 +2,18 @@ import { Either, left, right } from '../../../shared/either';
 import { InvalidDateError } from '../expense/expense.errors';
 
 export class ExpenseDate {
-  private _date: Date;
+  private _date: string;
 
-  constructor(date: Date) {
-    this._date = date;
+  constructor(date: string) {
+    this._date = new Date(date).toLocaleDateString();
   }
 
-  public static validate(date: Date): Either<InvalidDateError, ExpenseDate> {
+  public static validate(date: string): Either<InvalidDateError, ExpenseDate> {
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0);
-    if (date.getTime() > currentDate.getTime())
+
+    const insertedDate = new Date(date);
+    if (insertedDate.getTime() > currentDate.getTime())
       return left(new InvalidDateError());
 
     return right(new ExpenseDate(date));

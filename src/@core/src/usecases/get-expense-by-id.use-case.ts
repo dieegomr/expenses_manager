@@ -6,7 +6,7 @@ export class GetExpenseByIdUseCase {
   constructor(private readonly expenseRepo: ExpenseRepositoryInterface) {}
 
   async execute(
-    expenseId: string
+    expenseId: string,
   ): Promise<Either<ExpenseNotFoundError, ExpenseOutput>> {
     const expense = await this.expenseRepo.findById(expenseId);
 
@@ -19,7 +19,7 @@ export class GetExpenseByIdUseCase {
 export type ExpenseOutput = {
   id: string;
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };

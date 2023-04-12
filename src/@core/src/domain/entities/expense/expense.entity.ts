@@ -11,14 +11,14 @@ import {
 
 export type ExpenseProps = {
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };
 
 export type ValidationExpenseProps = {
   description?: string;
-  date?: Date;
+  date?: string;
   user?: string;
   amount?: number;
   id?: string;
@@ -26,14 +26,8 @@ export type ValidationExpenseProps = {
 
 export type UpdateExpenseProps = {
   description?: string;
-  date?: Date;
+  date?: string;
   amount?: number;
-};
-
-export type DateProps = {
-  day: number;
-  month: number;
-  year: number;
 };
 
 export class Expense {
@@ -46,7 +40,7 @@ export class Expense {
   }
 
   public static validateExpenseProps(
-    props: ValidationExpenseProps
+    props: ValidationExpenseProps,
   ): Either<
     | InvalidAmountError
     | InvalidDateError
@@ -85,7 +79,7 @@ export class Expense {
 
   public static createWithId(
     props: ExpenseProps,
-    id: string
+    id: string,
   ): Either<
     InvalidAmountError | InvalidDateError | InvalidDescriptionError,
     Expense
@@ -96,7 +90,7 @@ export class Expense {
   }
 
   public updateExpense(
-    input: UpdateExpenseProps
+    input: UpdateExpenseProps,
   ): Either<
     InvalidAmountError | InvalidDateError | InvalidDescriptionError,
     true
@@ -117,10 +111,7 @@ export class Expense {
 
   private updateDate(input: UpdateExpenseProps) {
     if (input.date) {
-      const day = input.date?.getDate();
-      const month = input.date?.getMonth();
-      const year = input.date?.getFullYear();
-      this.date = new Date(year, month - 1, day);
+      this.date = input.date;
     }
   }
 
@@ -140,6 +131,10 @@ export class Expense {
     return this._props.date;
   }
 
+  private set date(date: string) {
+    this._props.date = date;
+  }
+
   public get user() {
     return this._props.user;
   }
@@ -150,10 +145,6 @@ export class Expense {
 
   private set description(description: string) {
     this._props.description = description;
-  }
-
-  private set date(date: Date) {
-    this._props.date = date;
   }
 
   private set amount(amount: number) {

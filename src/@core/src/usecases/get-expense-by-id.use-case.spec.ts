@@ -14,7 +14,7 @@ describe('GetExpenseByIdUseCase Tests', function () {
   beforeEach(async function () {
     const output = await createExpense.execute({
       description: 'description1',
-      date: new Date(2023, 3, 10),
+      date: '2023-04-10',
       user: 'userId1',
       amount: 121,
     });

@@ -1,0 +1,30 @@
+GET http://localhost:3000/expenses
+
+###
+
+GET http://localhost:3000/expenses/4d1aca0c-2ecd-4519-8bd0-f35518da799f
+
+###
+
+PATCH  http://localhost:3000/expenses/68ddd7dc-6ac9-4a82-81db-6fcebcf70261
+Content-Type: application/json
+
+{
+    "amount": 100
+}
+
+####
+
+POST http://localhost:3000/expenses
+Content-Type: application/json
+
+{
+    "description": "breakfast",
+    "date": "2023-04-10", 
+    "user": "215",
+    "amount": 22
+}
+
+###
+
+DELETE  http://localhost:3000/expenses/327a1a16-ee2a-40c7-aaee-774b25323961

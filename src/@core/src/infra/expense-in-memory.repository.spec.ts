@@ -7,7 +7,7 @@ describe('ExpenseInMemoryRepository Test', function () {
 
     const props = {
       description: 'some_description',
-      date: new Date(2023, 3, 10),
+      date: '2023-04-10',
       user: 'some_user_id',
       amount: 100,
     };

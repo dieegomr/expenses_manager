@@ -13,7 +13,7 @@ export class CreateExpenseUseCase {
   constructor(private readonly expenseRepo: ExpenseRepositoryInterface) {}
 
   async execute(
-    input: CreateExpenseInput
+    input: CreateExpenseInput,
   ): Promise<
     Either<
       InvalidAmountError | InvalidDateError | InvalidDescriptionError,
@@ -33,7 +33,7 @@ export class CreateExpenseUseCase {
 
 type CreateExpenseInput = {
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };
@@ -41,7 +41,7 @@ type CreateExpenseInput = {
 type CreateExpenseOutput = {
   id: string;
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };

@@ -6,7 +6,7 @@ export class DeleteExpenseByIdUseCase {
   constructor(private readonly expenseRepo: ExpenseRepositoryInterface) {}
 
   async execute(
-    id: string
+    id: string,
   ): Promise<Either<ExpenseNotFoundError, DeleteExpenseOutput>> {
     const expense = await this.expenseRepo.findById(id);
     if (!expense) return left(new ExpenseNotFoundError());
@@ -20,7 +20,7 @@ export class DeleteExpenseByIdUseCase {
 type DeleteExpenseOutput = {
   id: string;
   description: string;
-  date: Date;
+  date: string;
   user: string;
   amount: number;
 };

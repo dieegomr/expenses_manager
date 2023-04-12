@@ -8,7 +8,7 @@ describe('CreateExpenseUseCase Tests', function () {
     const createUseCase = new CreateExpenseUseCase(repository);
     const expense = await createUseCase.execute({
       description: 'expense description',
-      date: new Date(2022, 3, 10),
+      date: '2022-04-10',
       amount: 120,
       user: 'userID',
     });
@@ -19,9 +19,7 @@ describe('CreateExpenseUseCase Tests', function () {
 
     expect(typeof output.id).toBe('string');
     expect(output.description).toBe('expense description');
-    expect(output.date.getDate()).toBe(10);
-    expect(output.date.getFullYear()).toBe(2022);
-    expect(output.date.getMonth()).toBe(3);
+    expect(output.date).toBe('2022-04-10');
     expect(output.amount).toBe(120);
     expect(output.user).toBe('userID');
   });
