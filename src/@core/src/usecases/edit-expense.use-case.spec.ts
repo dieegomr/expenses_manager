@@ -45,7 +45,6 @@ describe('EditExpenseUseCase Tests', function () {
     const editedExpenseOrError = await editExpenseUseCase.execute(expense.id, {
       amount: -10,
     });
-    console.log(editedExpenseOrError.value);
 
     expect(editedExpenseOrError.value).toBeInstanceOf(InvalidAmountError);
   });
