@@ -25,4 +25,14 @@ describe('Login UseCase', function () {
     await login.execute('any_email@gmail.com', 'any_password');
     expect(loadUserByEmailSpy).toHaveBeenCalledWith('any_email@gmail.com');
   });
+
+  test('should return null if userRepository.findByEmail() returns null ', async function () {
+    const userRepository = new UserInMemoryRepository();
+    const login = new LoginUseCase(userRepository);
+    const token = await login.execute(
+      'invalid_email@gmail.com',
+      'any_password',
+    );
+    expect(token).toBeNull();
+  });
 });

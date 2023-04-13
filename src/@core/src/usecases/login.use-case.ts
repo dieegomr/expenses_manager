@@ -6,6 +6,7 @@ export class LoginUseCase {
   async execute(email, password) {
     if (!email) return new MissingParamError('email');
     if (!password) return new MissingParamError('password');
-    await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) return null;
   }
 }
