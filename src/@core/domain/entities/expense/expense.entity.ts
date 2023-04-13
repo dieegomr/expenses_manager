@@ -16,6 +16,12 @@ export type ExpenseProps = {
   amount: number;
 };
 
+export type CreateExpenseParams = {
+  description: string;
+  date: string;
+  amount: number;
+};
+
 export type ValidationExpenseProps = {
   description?: string;
   date?: string;
@@ -32,11 +38,13 @@ export type UpdateExpenseProps = {
 
 export class Expense {
   private _id: string;
-  private _props: ExpenseProps;
+  private _props: CreateExpenseParams;
+  private _userId: string;
 
-  private constructor(props: ExpenseProps, id: string) {
+  private constructor(props: CreateExpenseParams, userId: string, id: string) {
     this._props = props;
     this._id = id;
+    this._userId = userId;
   }
 
   public static validateExpenseProps(
@@ -68,8 +76,9 @@ export class Expense {
 
     return right(props);
   }
-  public static createWithId(
-    props: ExpenseProps,
+  public static create(
+    props: CreateExpenseParams,
+    userId: string,
     id: string,
   ): Either<
     InvalidAmountError | InvalidDateError | InvalidDescriptionError,
@@ -77,7 +86,7 @@ export class Expense {
   > {
     const propsOrError = Expense.validateExpenseProps(props);
     if (propsOrError.isLeft()) return left(propsOrError.value);
-    return right(new Expense(props, id));
+    return right(new Expense(props, userId, id));
   }
 
   public updateExpense(
@@ -114,6 +123,10 @@ export class Expense {
     return this._id;
   }
 
+  public get userId() {
+    return this._userId;
+  }
+
   public get description() {
     return this._props.description;
   }
@@ -130,10 +143,6 @@ export class Expense {
     this._props.date = date;
   }
 
-  public get user() {
-    return this._props.user;
-  }
-
   public get amount() {
     return this._props.amount;
   }
@@ -147,7 +156,7 @@ export class Expense {
       id: this.id,
       description: this.description,
       date: this.date,
-      user: this.user,
+      user: this.userId,
       amount: this.amount,
     };
   }
