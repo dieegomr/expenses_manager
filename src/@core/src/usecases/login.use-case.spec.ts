@@ -26,7 +26,7 @@ describe('Login UseCase', function () {
     expect(loadUserByEmailSpy).toHaveBeenCalledWith('any_email@gmail.com');
   });
 
-  test('should return null if userRepository.findByEmail() returns null ', async function () {
+  test('should return null if invalid email is provided', async function () {
     const userRepository = new UserInMemoryRepository();
     const login = new LoginUseCase(userRepository);
     const token = await login.execute(
