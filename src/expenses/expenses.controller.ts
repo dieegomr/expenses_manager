@@ -10,11 +10,11 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { CreateExpenseUseCase } from 'src/@core/src/usecases/create-expense.use-case';
-import { EditExpenseUseCase } from 'src/@core/src/usecases/edit-expense.use-case';
-import { DeleteExpenseByIdUseCase } from 'src/@core/src/usecases/delete-expense.use-case';
-import { GetExpenseByIdUseCase } from 'src/@core/src/usecases/get-expense-by-id.use-case';
-import { GetAllExpensesUseCase } from 'src/@core/src/usecases/get-all-expense.use-case';
+import { CreateExpenseUseCase } from 'src/@core/usecases/create-expense.use-case';
+import { EditExpenseUseCase } from 'src/@core/usecases/edit-expense.use-case';
+import { DeleteExpenseByIdUseCase } from 'src/@core/usecases/delete-expense.use-case';
+import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-case';
+import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-case';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 
 @Controller('expenses')

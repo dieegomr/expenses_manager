@@ -28,3 +28,14 @@ Content-Type: application/json
 ###
 
 DELETE  http://localhost:3000/expenses/dcd4e123-78eb-4af3-8c4a-99e5e0451736
+
+###
+
+POST http://localhost:3000/user/
+Content-Type: application/json
+
+{
+    "name": "Diego",
+    "email": "diego@gmail.com",
+    "password": "teste" 
+}
