@@ -2,10 +2,9 @@ import { Email } from '../email/email.entity';
 import { User } from './user.entity';
 
 describe('User Tests', () => {
+  const emailOrError = Email.create('diego@gmail.com');
+  const email = emailOrError.value as Email;
   it('should create a user with id', function () {
-    const emailOrError = Email.create('diego@gmail.com');
-    const email = emailOrError.value as Email;
-
     const props = {
       name: 'some_user_name',
       password: 'some_user_password',
@@ -23,6 +22,7 @@ describe('User Tests', () => {
     const props = {
       name: 'some_user_name',
       password: 'some_user_password',
+      email: email,
     };
     const user = new User(props);
 

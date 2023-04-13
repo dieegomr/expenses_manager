@@ -1,4 +1,4 @@
-import { Either, left } from 'src/@core/src/shared/either';
+import { Either, left } from '../../../shared/either';
 import { InvalidEmailError } from '../email/emai.errors';
 import { Email } from '../email/email.entity';
 

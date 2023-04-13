@@ -9,7 +9,7 @@ export class Description {
   }
 
   public static validate(
-    text: string
+    text: string,
   ): Either<InvalidDescriptionError, Description> {
     const MAX_DESCRIPTION_CHARACTERS = 191;
     if (text.length > MAX_DESCRIPTION_CHARACTERS)
