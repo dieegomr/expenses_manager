@@ -37,6 +37,7 @@ export class User {
       id: this.id,
       name: this.props.name,
       email: this.props.email,
+      password: this.props.password,
     };
   }
 }
