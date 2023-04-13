@@ -68,15 +68,6 @@ export class Expense {
 
     return right(props);
   }
-
-  // public static createWithoutId(
-  //   props: ExpenseProps
-  // ): Either<InvalidAmountError | InvalidDateError, Expense> {
-  //   const propsOrError = Expense.validateExpenseProps(props);
-  //   if (propsOrError.isLeft()) return left(propsOrError.value);
-  //   return right(new Expense(propsOrError.value));
-  // }
-
   public static createWithId(
     props: ExpenseProps,
     id: string,
@@ -127,6 +118,10 @@ export class Expense {
     return this._props.description;
   }
 
+  private set description(description: string) {
+    this._props.description = description;
+  }
+
   public get date() {
     return this._props.date;
   }
@@ -141,10 +136,6 @@ export class Expense {
 
   public get amount() {
     return this._props.amount;
-  }
-
-  private set description(description: string) {
-    this._props.description = description;
   }
 
   private set amount(amount: number) {
