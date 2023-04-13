@@ -14,7 +14,7 @@ export class CreateExpenseUseCase {
 
   async execute(
     input: CreateExpenseInput,
-    user: string,
+    userId: string,
   ): Promise<
     Either<
       InvalidAmountError | InvalidDateError | InvalidDescriptionError,
@@ -23,7 +23,7 @@ export class CreateExpenseUseCase {
   > {
     const uuid = crypto.randomUUID();
 
-    const expense = Expense.create(input, user, uuid);
+    const expense = Expense.create(input, userId, uuid);
     if (expense.isLeft()) return left(expense.value);
 
     await this.expenseRepo.insert(expense.value);
