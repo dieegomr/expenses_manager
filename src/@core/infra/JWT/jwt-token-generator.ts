@@ -1,10 +1,12 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { TokenGenerator } from 'src/@core/domain/interfaces/token-generator.interface';
 import { JwtError } from './jwt-token-generator.error';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const JWT_EXPIRES_IN_SECONDS = 60;
 
-export class JwtRepository implements TokenGenerator {
+export class JwtTokenGenerator implements TokenGenerator {
   async verify(token: string): Promise<jwt.JwtPayload> {
     try {
       return jwt.verify(token, process.env.JWT_PASS ?? '') as JwtPayload;
