@@ -31,8 +31,11 @@ export class ExpensesController {
 
   @Post()
   async create(@Body() createExpenseDto: CreateExpenseDto) {
-    // return this.expensesService.create(createExpenseDto);
-    const output = await this.createExpenseUseCase.execute(createExpenseDto);
+    const userId = '1231232131231';
+    const output = await this.createExpenseUseCase.execute(
+      createExpenseDto,
+      userId,
+    );
     if (output.isLeft())
       throw new HttpException(output.value.message, HttpStatus.BAD_REQUEST);
 

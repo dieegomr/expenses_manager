@@ -8,11 +8,12 @@ describe('ExpenseInMemoryRepository Test', function () {
     const props = {
       description: 'some_description',
       date: '2023-04-10',
-      user: 'some_user_id',
       amount: 100,
     };
 
-    const expenseOrError = Expense.createWithId(props, 'some_expense_id');
+    const userId = 'some_user_id';
+
+    const expenseOrError = Expense.create(props, userId, 'some_expense_id');
     const expense = expenseOrError.value as Expense;
 
     await repository.insert(expense);

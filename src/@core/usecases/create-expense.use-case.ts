@@ -38,7 +38,7 @@ type CreateExpenseInput = {
   amount: number;
 };
 
-type CreateExpenseOutput = {
+export type CreateExpenseOutput = {
   id: string;
   description: string;
   date: string;
