@@ -46,8 +46,8 @@ export class ExpensesController {
   }
 
   @Get()
-  findAll() {
-    return this.getAllExpenseUseCase.execute();
+  findAll(@CurrentUser() user: UserFromJwt) {
+    return this.getAllExpenseUseCase.execute(user.id);
   }
 
   @Get(':id')

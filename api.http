@@ -4,8 +4,8 @@ POST http://localhost:3000/user/
 Content-Type: application/json
 
 {
-    "name": "Patricia",
-    "email": "patricia@gmail.com",
+    "name": "Diego",
+    "email": "diego@gmail.com",
     "password": "Test@1234"
 }
 
@@ -15,7 +15,8 @@ POST http://localhost:3000/auth
 Content-Type: application/json
 
 {
-    "email": "patricia@gmail.com"
+    "email": "patricia@gmail.com",
+    "password": "Test@1234"
 }
 
 
@@ -23,17 +24,17 @@ Content-Type: application/json
 
 POST http://localhost:3000/expenses
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzNGQzNmU2LTgyYWEtNGU5Ny1iYWY4LTNlMDg0OGFlZDhjNyIsImlhdCI6MTY4MTQ5Mzk4OCwiZXhwIjoxNjgxNDk0MDQ4fQ.4OEDpDJQFEoLIrn-sXWCyh5OYMrRfdBGw5BuVqsJXG0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA3MGQ1MWQxLTNkZGItNDExNS05NDU4LWRmMmY4YzE5ZGJhNCIsImlhdCI6MTY4MTUwMzQyMywiZXhwIjoxNjgxNTAzNDgzfQ.cV5j89XaluYzZbbZ2JLezDTZuE32Bl32HCNmLAhwtEA
 
 {
-    "description": "shein",
+    "description": "patio",
     "date": "2023-04-10", 
     "amount": 22
 }
 
 ### Get all expenses
 GET http://localhost:3000/expenses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMzNGQzNmU2LTgyYWEtNGU5Ny1iYWY4LTNlMDg0OGFlZDhjNyIsImlhdCI6MTY4MTQ5Mzk4OCwiZXhwIjoxNjgxNDk0MDQ4fQ.4OEDpDJQFEoLIrn-sXWCyh5OYMrRfdBGw5BuVqsJXG0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA3MGQ1MWQxLTNkZGItNDExNS05NDU4LWRmMmY4YzE5ZGJhNCIsImlhdCI6MTY4MTUwMzQ3MywiZXhwIjoxNjgxNTAzNTMzfQ.Xl75jaVR-RqF-cRFpBu3Wzni4To6lqkD8uZ_B9vXNKI
 
 ###
 
