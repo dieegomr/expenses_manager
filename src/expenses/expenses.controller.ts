@@ -35,7 +35,7 @@ export class ExpensesController {
     @Body() createExpenseDto: CreateExpenseDto,
     @CurrentUser() user,
   ) {
-    const userId = '1231232131231';
+    const userId = user.id;
     const output = await this.createExpenseUseCase.execute(
       createExpenseDto,
       userId,
