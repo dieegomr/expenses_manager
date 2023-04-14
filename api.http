@@ -1,9 +1,20 @@
 GET http://localhost:3000/expenses
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNmMzZDNlLWJlYmQtNDRkOC05OGNmLWM2YWU4ZTRjZjZiZSIsImlhdCI6MTY4MTQ4MjYzMCwiZXhwIjoxNjgxNDgyNjkwfQ.gz6I_AIqeTrxlubcPMOOQB6X_4lLuMJWR0NWdm5Is3s
 
 ###
 
 GET http://localhost:3000/expenses/4d1aca0c-2ecd-4519-8bd0-f35518da799f
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNmMzZDNlLWJlYmQtNDRkOC05OGNmLWM2YWU4ZTRjZjZiZSIsImlhdCI6MTY4MTQ4MjYzMCwiZXhwIjoxNjgxNDgyNjkwfQ.gz6I_AIqeTrxlubcPMOOQB6X_4lLuMJWR0NWdm5Is3s
 
+###
+
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+    "email": "diego@gmail.com",
+    "password": "Test@1234"
+}
 ###
 
 PATCH  http://localhost:3000/expenses/68ddd7dc-6ac9-4a82-81db-6fcebcf70261
@@ -17,11 +28,11 @@ Content-Type: application/json
 
 POST http://localhost:3000/expenses
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNmMzZDNlLWJlYmQtNDRkOC05OGNmLWM2YWU4ZTRjZjZiZSIsImlhdCI6MTY4MTQ4MjYzMCwiZXhwIjoxNjgxNDgyNjkwfQ.gz6I_AIqeTrxlubcPMOOQB6X_4lLuMJWR0NWdm5Is3s
 
 {
     "description": "breakfast",
     "date": "2023-04-10", 
-    "user": "215",
     "amount": 22
 }
 
@@ -37,5 +48,5 @@ Content-Type: application/json
 {
     "name": "Diego",
     "email": "diego@gmail.com",
-    "password": "teste" 
+    "password": "Test@1234"
 }

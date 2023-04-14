@@ -8,11 +8,13 @@ import { LoginUseCase } from 'src/@core/usecases/login.use-case';
 import { UserModule } from 'src/user/user.module';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
   imports: [UserModule],
   providers: [
     AuthService,
+    JwtStrategy,
     {
       provide: BcryptPasswordHashing,
       useClass: BcryptPasswordHashing,
