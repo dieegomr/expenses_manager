@@ -11,7 +11,8 @@ describe('UserInMemoryRepository Test', function () {
       password: '232e4324',
     };
 
-    const user = new User(props, '21313');
+    const userOrError = User.create(props, '12312321');
+    const user = userOrError.value as User;
 
     await repository.save(user);
 
@@ -27,7 +28,8 @@ describe('UserInMemoryRepository Test', function () {
       password: '232e4324',
     };
 
-    const user = new User(props, '21313');
+    const userOrError = User.create(props, '12312321');
+    const user = userOrError.value as User;
 
     await repository.findByEmail('dmendes.rocha@gmail.com');
 
@@ -42,7 +44,8 @@ describe('UserInMemoryRepository Test', function () {
       password: '232e4324',
     };
 
-    const user = new User(props, '21313');
+    const userOrError = User.create(props, '12312321');
+    const user = userOrError.value as User;
 
     await repository.findByEmail('rafael.rocha@gmail.com');
 
