@@ -17,11 +17,10 @@ import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-
 import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-case';
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { CurrentUser } from 'src/auth/decorators/current-user-decorator';
+import { UserFromJwt } from 'src/auth/models/user-from-jwt';
 
 @Controller('expenses')
 export class ExpensesController {
-  // constructor(private readonly expensesService: ExpensesService) {}
-
   constructor(
     private readonly createExpenseUseCase: CreateExpenseUseCase,
     private readonly editExpenseUseCase: EditExpenseUseCase,
@@ -33,7 +32,7 @@ export class ExpensesController {
   @Post()
   async create(
     @Body() createExpenseDto: CreateExpenseDto,
-    @CurrentUser() user,
+    @CurrentUser() user: UserFromJwt,
   ) {
     const userId = user.id;
     const output = await this.createExpenseUseCase.execute(
