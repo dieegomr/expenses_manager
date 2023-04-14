@@ -1,8 +1,8 @@
-import { Expense } from '../domain/entities/expense/expense.entity';
 import { InvalidAmountError } from '../domain/entities/expense/expense.errors';
 import { ExpenseInMemoryRepository } from '../infra/expense-in-memory.repository';
 import { CreateExpenseUseCase } from './create-expense.use-case';
 import { EditExpenseUseCase } from './edit-expense.use-case';
+import { ExpenseOutput } from './get-expense-by-id.use-case';
 
 describe('EditExpenseUseCase Tests', function () {
   it('should edit a expense', async function () {
@@ -10,20 +10,26 @@ describe('EditExpenseUseCase Tests', function () {
     const createUseCase = new CreateExpenseUseCase(repository);
     const editExpenseUseCase = new EditExpenseUseCase(repository);
 
-    const expenseOrError = await createUseCase.execute({
-      description: 'expense description',
-      date: '2022-04-10',
-      amount: 120,
-      user: 'userID',
-    });
+    const expenseOrError = await createUseCase.execute(
+      {
+        description: 'expense description',
+        date: '2022-04-10',
+        amount: 120,
+      },
+      'userID',
+    );
 
-    const expense = expenseOrError.value as Expense;
+    const expense = expenseOrError.value as ExpenseOutput;
 
-    const editedExpenseOrError = await editExpenseUseCase.execute(expense.id, {
-      description: 'new expense description',
-    });
+    const editedExpenseOrError = await editExpenseUseCase.execute(
+      expense.id,
+      'userID',
+      {
+        description: 'new expense description',
+      },
+    );
 
-    const editedExpense = editedExpenseOrError.value as Expense;
+    const editedExpense = editedExpenseOrError.value as ExpenseOutput;
 
     expect(editedExpense.description).toBe('new expense description');
   });
@@ -33,18 +39,24 @@ describe('EditExpenseUseCase Tests', function () {
     const createUseCase = new CreateExpenseUseCase(repository);
     const editExpenseUseCase = new EditExpenseUseCase(repository);
 
-    const expenseOrError = await createUseCase.execute({
-      description: 'expense description',
-      date: '2022-04-10',
-      amount: 120,
-      user: 'userID',
-    });
+    const expenseOrError = await createUseCase.execute(
+      {
+        description: 'expense description',
+        date: '2022-04-10',
+        amount: 120,
+      },
+      'userID',
+    );
 
-    const expense = expenseOrError.value as Expense;
+    const expense = expenseOrError.value as ExpenseOutput;
 
-    const editedExpenseOrError = await editExpenseUseCase.execute(expense.id, {
-      amount: -10,
-    });
+    const editedExpenseOrError = await editExpenseUseCase.execute(
+      expense.id,
+      'userID',
+      {
+        amount: -10,
+      },
+    );
 
     expect(editedExpenseOrError.value).toBeInstanceOf(InvalidAmountError);
   });

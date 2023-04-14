@@ -11,7 +11,8 @@ export class EditExpenseUseCase {
   constructor(private readonly expenseRepo: ExpenseRepositoryInterface) {}
 
   async execute(
-    id: string,
+    expenseId: string,
+    userId: string,
     input: EditExpenseInput,
   ): Promise<
     Either<
@@ -22,7 +23,10 @@ export class EditExpenseUseCase {
       EditExpenseOutput
     >
   > {
-    const expense = await this.expenseRepo.findById(id);
+    const expense = await this.expenseRepo.findByUserIdAndExpenseById(
+      userId,
+      expenseId,
+    );
     if (!expense) return left(new ExpenseNotFoundError());
 
     const expenseOrError = expense.updateExpense(input);
