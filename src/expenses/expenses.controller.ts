@@ -51,8 +51,11 @@ export class ExpensesController {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const output = await this.getExpenseByIdUseCase.execute(id);
+  async findOne(
+    @Param('id') expenseId: string,
+    @CurrentUser() user: UserFromJwt,
+  ) {
+    const output = await this.getExpenseByIdUseCase.execute(user.id, expenseId);
     if (output.isLeft())
       throw new HttpException(output.value.message, HttpStatus.BAD_REQUEST);
     return output.value;
@@ -60,18 +63,26 @@ export class ExpensesController {
 
   @Patch(':id')
   async update(
-    @Param('id') id: string,
+    @Param('id') expenseId: string,
     @Body() updateExpenseDto: UpdateExpenseDto,
+    @CurrentUser() user: UserFromJwt,
   ) {
-    const output = await this.editExpenseUseCase.execute(id, updateExpenseDto);
+    const output = await this.editExpenseUseCase.execute(
+      expenseId,
+      user.id,
+      updateExpenseDto,
+    );
     if (output.isLeft())
       throw new HttpException(output.value.message, HttpStatus.BAD_REQUEST);
     return output.value;
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    const output = await this.deleteExpenseUseCase.execute(id);
+  async remove(
+    @Param('id') expenseId: string,
+    @CurrentUser() user: UserFromJwt,
+  ) {
+    const output = await this.deleteExpenseUseCase.execute(user.id, expenseId);
     if (output.isLeft())
       throw new HttpException(output.value.message, HttpStatus.BAD_REQUEST);
 
