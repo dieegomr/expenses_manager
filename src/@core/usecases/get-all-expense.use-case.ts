@@ -4,8 +4,8 @@ import { ExpenseOutput } from './get-expense-by-id.use-case';
 export class GetAllExpensesUseCase {
   constructor(private readonly expenseRepo: ExpenseRepositoryInterface) {}
 
-  async execute(): Promise<ExpenseOutput[]> {
-    const expenses = await this.expenseRepo.getAll();
+  async execute(userId: string): Promise<ExpenseOutput[]> {
+    const expenses = await this.expenseRepo.getAllByUser(userId);
     return expenses.map((expense) => expense.toJSON());
   }
 }
