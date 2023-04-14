@@ -1,7 +1,5 @@
 export type UserPayload = {
-  sub: number;
-  email: string;
-  name: string;
+  id: string;
   iat?: number;
   exp?: number;
 };

@@ -1,13 +1,9 @@
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-} from '@nestjs/common';
+import { Request, Controller, Post, UseGuards } from '@nestjs/common';
 import { LoginUseCase } from 'src/@core/usecases/login.use-case';
 import { IsPublic } from './decorators/is-public.decorator';
 import { LoginDto } from './dto/login.dto';
+import { LocalAuthGuard } from './guards/local-auth.guard';
+import { AuthRequest } from './models/auth-request';
 
 @Controller('auth')
 export class AuthController {
@@ -15,14 +11,8 @@ export class AuthController {
 
   @IsPublic()
   @Post()
-  async login(@Body() loginDto: LoginDto) {
-    const { email, password } = loginDto;
-    const outputOrError = await this.loginUseCase.execute(email, password);
-    if (outputOrError.isLeft())
-      throw new HttpException(
-        outputOrError.value.message,
-        HttpStatus.BAD_REQUEST,
-      );
-    return outputOrError.value;
+  @UseGuards(LocalAuthGuard)
+  login(@Request() req: AuthRequest) {
+    return req.user;
   }
 }

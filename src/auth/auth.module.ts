@@ -9,12 +9,14 @@ import { UserModule } from 'src/user/user.module';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { LocalStrategy } from './strategies/local.strategy';
 
 @Module({
-  imports: [UserModule],
+  imports: [UserModule, AuthModule],
   providers: [
     AuthService,
     JwtStrategy,
+    LocalStrategy,
     {
       provide: BcryptPasswordHashing,
       useClass: BcryptPasswordHashing,

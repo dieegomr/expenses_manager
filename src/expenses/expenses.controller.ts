@@ -16,6 +16,7 @@ import { DeleteExpenseByIdUseCase } from 'src/@core/usecases/delete-expense.use-
 import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-case';
 import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-case';
 import { CreateExpenseDto } from './dto/create-expense.dto';
+import { CurrentUser } from 'src/auth/decorators/current-user-decorator';
 
 @Controller('expenses')
 export class ExpensesController {
@@ -30,7 +31,10 @@ export class ExpensesController {
   ) {}
 
   @Post()
-  async create(@Body() createExpenseDto: CreateExpenseDto) {
+  async create(
+    @Body() createExpenseDto: CreateExpenseDto,
+    @CurrentUser() user,
+  ) {
     const userId = '1231232131231';
     const output = await this.createExpenseUseCase.execute(
       createExpenseDto,

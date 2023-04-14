@@ -8,8 +8,11 @@ import { EditExpenseUseCase } from 'src/@core/usecases/edit-expense.use-case';
 import { DeleteExpenseByIdUseCase } from 'src/@core/usecases/delete-expense.use-case';
 import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-case';
 import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-case';
+import { AuthModule } from 'src/auth/auth.module';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
+  imports: [AuthModule, UserModule],
   controllers: [ExpensesController],
   providers: [
     ExpensesService,
