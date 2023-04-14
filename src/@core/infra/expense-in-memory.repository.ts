@@ -8,8 +8,13 @@ export class ExpenseInMemoryRepository implements ExpenseRepositoryInterface {
     this.items.push(expense);
   }
 
-  async findById(id: string): Promise<Expense | null> {
-    const expense = this.items.find((expense) => expense.id === id);
+  async findByUserIdAndExpenseById(
+    userId: string,
+    expenseId: string,
+  ): Promise<Expense | null> {
+    const expense = this.items.find(
+      (expense) => expense.id === expenseId && expense.userId === userId,
+    );
 
     if (!expense) return null;
 
