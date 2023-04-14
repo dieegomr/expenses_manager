@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { UserService } from './user.service';
 import { UserController } from './user.controller';
 import { UserInMemoryRepository } from 'src/@core/infra/user-in-memory.repository';
 import { CreateUserUseCase } from 'src/@core/usecases/create-user.use-case';
@@ -12,7 +11,6 @@ import { GetUserByEmailUseCase } from 'src/@core/usecases/get-user-by-email.use-
 @Module({
   controllers: [UserController],
   providers: [
-    UserService,
     {
       provide: UserInMemoryRepository,
       useClass: UserInMemoryRepository,
