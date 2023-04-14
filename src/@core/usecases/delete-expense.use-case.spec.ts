@@ -1,33 +1,72 @@
-import { Expense } from '../domain/entities/expense/expense.entity';
 import { ExpenseInMemoryRepository } from '../infra/expense-in-memory.repository';
 import { CreateExpenseUseCase } from './create-expense.use-case';
 import { DeleteExpenseByIdUseCase } from './delete-expense.use-case';
 import { ExpenseNotFoundError } from './errors/get-expense-by-id.error';
+import { ExpenseOutput } from './get-expense-by-id.use-case';
 
 describe('DeleteExpenseUseCase Tests', function () {
-  it('should delete a expense', async function () {
+  const makeTest = () => {
     const repository = new ExpenseInMemoryRepository();
-    const createUseCase = new CreateExpenseUseCase(repository);
+    const createExpenseUseCase = new CreateExpenseUseCase(repository);
     const deleteExpenseById = new DeleteExpenseByIdUseCase(repository);
-    const expenseOrError = await createUseCase.execute({
-      description: 'expense description',
-      date: '2022-04-10',
-      amount: 120,
-      user: 'userID',
-    });
+    return { createExpenseUseCase, deleteExpenseById, repository };
+  };
+  it('should be able to delete an expense if belongs to the current user', async function () {
+    const { createExpenseUseCase, deleteExpenseById, repository } = makeTest();
+    const expenseOrError = await createExpenseUseCase.execute(
+      {
+        description: 'expense1',
+        date: '2022-04-10',
+        amount: 120,
+      },
+      'userId1',
+    );
 
-    const expense = expenseOrError.value as Expense;
+    const expense = expenseOrError.value as ExpenseOutput;
 
-    const deletedOrError = await deleteExpenseById.execute(expense.id);
+    const deletedOrError = await deleteExpenseById.execute(
+      'userId1',
+      expense.id,
+    );
 
     expect(repository.items).toHaveLength(0);
   });
 
   it('should return an error if could not find a expense', async function () {
-    const repository = new ExpenseInMemoryRepository();
-    const deleteExpenseById = new DeleteExpenseByIdUseCase(repository);
+    const { createExpenseUseCase, deleteExpenseById, repository } = makeTest();
+    await createExpenseUseCase.execute(
+      {
+        description: 'expense1',
+        date: '2022-04-10',
+        amount: 120,
+      },
+      'userId1',
+    );
 
-    const deletedOrError = await deleteExpenseById.execute('wrongId');
+    const deletedOrError = await deleteExpenseById.execute(
+      'userId1',
+      'wrongId',
+    );
+
+    expect(deletedOrError.value).toBeInstanceOf(ExpenseNotFoundError);
+  });
+
+  it('should return an error if user does not belong to the expense', async function () {
+    const { createExpenseUseCase, deleteExpenseById, repository } = makeTest();
+    const expenseOrError = await createExpenseUseCase.execute(
+      {
+        description: 'expense1',
+        date: '2022-04-10',
+        amount: 120,
+      },
+      'userId1',
+    );
+    const expense = expenseOrError.value as ExpenseOutput;
+
+    const deletedOrError = await deleteExpenseById.execute(
+      'userId2',
+      expense.id,
+    );
 
     expect(deletedOrError.value).toBeInstanceOf(ExpenseNotFoundError);
   });
