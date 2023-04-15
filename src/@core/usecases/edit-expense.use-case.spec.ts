@@ -1,5 +1,6 @@
 import { InvalidAmountError } from '../domain/entities/expense/expense.errors';
 import { ExpenseInMemoryRepository } from '../infra/expense-in-memory.repository';
+import { UserInMemoryRepository } from '../infra/user-in-memory.repository';
 import { CreateExpenseUseCase } from './create-expense.use-case';
 import { EditExpenseUseCase } from './edit-expense.use-case';
 import { ExpenseOutput } from './get-expense-by-id.use-case';
@@ -7,7 +8,8 @@ import { ExpenseOutput } from './get-expense-by-id.use-case';
 describe('EditExpenseUseCase Tests', function () {
   it('should edit a expense', async function () {
     const repository = new ExpenseInMemoryRepository();
-    const createUseCase = new CreateExpenseUseCase(repository);
+    const userRepo = new UserInMemoryRepository();
+    const createUseCase = new CreateExpenseUseCase(repository, userRepo);
     const editExpenseUseCase = new EditExpenseUseCase(repository);
 
     const expenseOrError = await createUseCase.execute(
