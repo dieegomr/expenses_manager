@@ -1,3 +1,4 @@
+
 ### Create new user
 
 POST http://localhost:3000/user/
@@ -5,7 +6,7 @@ Content-Type: application/json
 
 {
     "name": "Diego",
-    "email": "diego@gmail.com",
+    "email": "patricia@gmail.com",
     "password": "Test@1234"
 }
 
@@ -15,7 +16,7 @@ POST http://localhost:3000/auth
 Content-Type: application/json
 
 {
-    "email": "patricia@gmail.com",
+    "email": "diego@gmail.com",
     "password": "Test@1234"
 }
 
@@ -24,22 +25,23 @@ Content-Type: application/json
 
 POST http://localhost:3000/expenses
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA3MGQ1MWQxLTNkZGItNDExNS05NDU4LWRmMmY4YzE5ZGJhNCIsImlhdCI6MTY4MTUwMzQyMywiZXhwIjoxNjgxNTAzNDgzfQ.cV5j89XaluYzZbbZ2JLezDTZuE32Bl32HCNmLAhwtEA
+Authorization: Bearer 
+token
 
 {
-    "description": "patio",
+    "description": "shein",
     "date": "2023-04-10", 
     "amount": 22
 }
 
 ### Get all expenses
 GET http://localhost:3000/expenses
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjA3MGQ1MWQxLTNkZGItNDExNS05NDU4LWRmMmY4YzE5ZGJhNCIsImlhdCI6MTY4MTUwMzQ3MywiZXhwIjoxNjgxNTAzNTMzfQ.Xl75jaVR-RqF-cRFpBu3Wzni4To6lqkD8uZ_B9vXNKI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhOTE1ODRiLTc0NmEtNGM1NC04M2M2LTg2MDI4MjQwZDM3NSIsImlhdCI6MTY4MTUxMTA2NywiZXhwIjoxNjgxNTExMTI3fQ.Jm6CFHv4Q3ja-eQxkyLx5dZP5KXKj4lRIOmvNq1rkG8
 
 ###
 
-GET http://localhost:3000/expenses/4d1aca0c-2ecd-4519-8bd0-f35518da799f
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNmMzZDNlLWJlYmQtNDRkOC05OGNmLWM2YWU4ZTRjZjZiZSIsImlhdCI6MTY4MTQ4MjYzMCwiZXhwIjoxNjgxNDgyNjkwfQ.gz6I_AIqeTrxlubcPMOOQB6X_4lLuMJWR0NWdm5Is3s
+GET http://localhost:3000/expenses/5a03de46-bcd2-4346-9397-2ec925574483
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhOTE1ODRiLTc0NmEtNGM1NC04M2M2LTg2MDI4MjQwZDM3NSIsImlhdCI6MTY4MTUxMDk3OSwiZXhwIjoxNjgxNTExMDM5fQ.LBfgf8fJ2qKrbp5BfH6AQuX0FW4qPIQbHezimYkdUzs
 
 
 ###
@@ -55,6 +57,5 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://localhost:3000/expenses/dcd4e123-78eb-4af3-8c4a-99e5e0451736
-
-
+DELETE  http://localhost:3000/expenses/f1f08115-9134-4246-9e82-232fe4ddc353
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhOTE1ODRiLTc0NmEtNGM1NC04M2M2LTg2MDI4MjQwZDM3NSIsImlhdCI6MTY4MTUxMDk3OSwiZXhwIjoxNjgxNTExMDM5fQ.LBfgf8fJ2qKrbp5BfH6AQuX0FW4qPIQbHezimYkdUzs
