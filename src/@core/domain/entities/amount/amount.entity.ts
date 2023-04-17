@@ -8,6 +8,10 @@ export class Amount {
     this._value = value;
   }
 
+  public get value() {
+    return this._value;
+  }
+
   public static validate(value: number): Either<InvalidAmountError, Amount> {
     if (value < 0) return left(new InvalidAmountError());
 
