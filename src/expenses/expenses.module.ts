@@ -10,6 +10,9 @@ import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-ca
 import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-case';
 import { AuthModule } from 'src/auth/auth.module';
 import { UserModule } from 'src/user/user.module';
+import { NodeMailerEmailSender } from 'src/@core/infra/nodeMailer/nodemailer-email-sender';
+import { EmailSender } from 'src/@core/domain/interfaces/email-sender.interface';
+import { GetUserByIdUseCase } from 'src/@core/usecases/get-user-by-id.use-case';
 
 @Module({
   imports: [AuthModule, UserModule],
@@ -21,11 +24,23 @@ import { UserModule } from 'src/user/user.module';
       useClass: ExpenseInMemoryRepository,
     },
     {
+      provide: NodeMailerEmailSender,
+      useClass: NodeMailerEmailSender,
+    },
+    {
       provide: CreateExpenseUseCase,
-      useFactory: (expenseRepo: ExpenseRepositoryInterface) => {
-        return new CreateExpenseUseCase(expenseRepo);
+      useFactory: (
+        expenseRepo: ExpenseRepositoryInterface,
+        getUserById: GetUserByIdUseCase,
+        emailSender: EmailSender,
+      ) => {
+        return new CreateExpenseUseCase(expenseRepo, getUserById, emailSender);
       },
-      inject: [ExpenseInMemoryRepository],
+      inject: [
+        ExpenseInMemoryRepository,
+        GetUserByIdUseCase,
+        NodeMailerEmailSender,
+      ],
     },
     {
       provide: EditExpenseUseCase,

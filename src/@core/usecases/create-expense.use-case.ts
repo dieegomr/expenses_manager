@@ -8,13 +8,14 @@ import {
   InvalidDescriptionError,
 } from '../domain/entities/expense/expense.errors';
 import { ExpenseRepositoryInterface } from '../domain/repositories/expense.repository';
-import { UserRepositoryInterface } from '../domain/repositories/user.repository';
 import { EmailSender } from '../domain/interfaces/email-sender.interface';
+import { GetUserByIdUseCase } from './get-user-by-id.use-case';
+import { UserNotFoundError } from './errors/user-not-found.error';
 
 export class CreateExpenseUseCase {
   constructor(
     private readonly expenseRepo: ExpenseRepositoryInterface,
-    private readonly userRepo: UserRepositoryInterface,
+    private readonly getUserById: GetUserByIdUseCase,
     private readonly emailSender: EmailSender,
   ) {}
 
@@ -23,31 +24,32 @@ export class CreateExpenseUseCase {
     userId: string,
   ): Promise<
     Either<
-      InvalidAmountError | InvalidDateError | InvalidDescriptionError,
+      | InvalidAmountError
+      | InvalidDateError
+      | InvalidDescriptionError
+      | UserNotFoundError,
       CreateExpenseOutput
     >
   > {
     const uuid = crypto.randomUUID();
 
-    const user = await this.userRepo.findById(userId);
+    const userOrError = await this.getUserById.execute(userId);
+    if (userOrError.isLeft()) return left(userOrError.value);
+    const user = userOrError.value;
 
-    const expense = Expense.create(input, userId, uuid);
-    if (expense.isLeft()) return left(expense.value);
+    const expenseOrError = Expense.create(input, userId, uuid);
+    if (expenseOrError.isLeft()) return left(expenseOrError.value);
+    const { amount, date, description } = expenseOrError.value;
 
-    await this.expenseRepo.insert(expense.value);
+    await this.expenseRepo.insert(expenseOrError.value);
 
     await this.emailSender.sendEmail({
-      email: user.props.email,
+      email: user.email,
       subject: 'Despesa Cadastrada',
-      text: `Detalhes da despesa: 
-      id: ${expense.value.id}
-      descrição: ${expense.value.description}
-      data: ${expense.value.date}
-      valor: R$${expense.value.amount} 
-      `,
+      text: `No dia ${date}, foi gasto R$${amount} com ${description}`,
     });
 
-    return right(expense.value.toJSON());
+    return right(expenseOrError.value.toJSON());
   }
 }
 
