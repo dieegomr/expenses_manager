@@ -21,6 +21,8 @@ export class ExpenseDate {
 
   public static convertToLocale(date: string) {
     const insertedDate = new Date(date);
-    return insertedDate.toLocaleDateString();
+    return `${insertedDate.getUTCDate()}/${
+      insertedDate.getUTCMonth() + 1
+    }/${insertedDate.getUTCFullYear()}`;
   }
 }
