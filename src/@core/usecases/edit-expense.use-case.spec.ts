@@ -1,5 +1,7 @@
 import { InvalidAmountError } from '../domain/entities/expense/expense.errors';
+import { User } from '../domain/entities/user/user.entity';
 import { ExpenseInMemoryRepository } from '../infra/expense-in-memory.repository';
+import { NodeMailerEmailSender } from '../infra/nodeMailer/nodemailer-email-sender';
 import { UserInMemoryRepository } from '../infra/user-in-memory.repository';
 import { CreateExpenseUseCase } from './create-expense.use-case';
 import { EditExpenseUseCase } from './edit-expense.use-case';
@@ -9,8 +11,21 @@ describe('EditExpenseUseCase Tests', function () {
   it('should edit a expense', async function () {
     const repository = new ExpenseInMemoryRepository();
     const userRepo = new UserInMemoryRepository();
-    const createUseCase = new CreateExpenseUseCase(repository, userRepo);
+    const emailSender = new NodeMailerEmailSender();
+    const createUseCase = new CreateExpenseUseCase(
+      repository,
+      userRepo,
+      emailSender,
+    );
     const editExpenseUseCase = new EditExpenseUseCase(repository);
+
+    const userOrError = User.create(
+      { email: 'diego@gmail.com', name: 'Diego', password: 'Test1234' },
+      'userID',
+    );
+    const user = userOrError.value as User;
+
+    await userRepo.save(user);
 
     const expenseOrError = await createUseCase.execute(
       {
