@@ -8,12 +8,19 @@ export class Description {
     this._text = text;
   }
 
+  public get value() {
+    return this._text;
+  }
+
   public static validate(
     text: string,
   ): Either<InvalidDescriptionError, Description> {
     const MAX_DESCRIPTION_CHARACTERS = 191;
-    if (text.length > MAX_DESCRIPTION_CHARACTERS)
+
+    if (text.length > MAX_DESCRIPTION_CHARACTERS) {
+      console.log('entrei', text.length);
       return left(new InvalidDescriptionError());
+    }
 
     return right(new Description(text));
   }
