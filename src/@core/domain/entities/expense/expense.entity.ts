@@ -115,7 +115,8 @@ export class Expense {
 
   private updateDate(input: UpdateExpenseProps) {
     if (input.date) {
-      this.date = input.date;
+      const date = ExpenseDate.convertToLocale(input.date);
+      this.date = date;
     }
   }
 
