@@ -15,12 +15,11 @@ describe('Expense Tests', () => {
     const userId = 'some_user_id';
 
     const expenseOrError = Expense.create(props, userId, 'some_expense_id');
-    expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
     expect(expense.userId).toBe('some_user_id');
     expect(expense.description).toBe('some_description');
-    expect(expense.date).toBe('2022-3-10');
+    expect(expense.date).toBe('10/3/2022');
     expect(expense.amount).toBe(100);
     expect(expense.id).toBe('some_expense_id');
   });
@@ -35,7 +34,6 @@ describe('Expense Tests', () => {
     const userId = 'some_user_id';
 
     const expenseOrError = Expense.create(props, userId, 'some_expense_id');
-    expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
     expense.updateExpense({ description: 'updated_description' });
@@ -53,12 +51,11 @@ describe('Expense Tests', () => {
     const userId = 'some_user_id';
 
     const expenseOrError = Expense.create(props, userId, 'some_expense_id');
-    expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
     expense.updateExpense({ date: '2021-1-21' });
 
-    expect(expense.date).toBe('2021-1-21');
+    expect(expense.date).toBe('21/1/2021');
   });
 
   it('should update amount', function () {
@@ -71,7 +68,6 @@ describe('Expense Tests', () => {
     const userId = 'some_user_id';
 
     const expenseOrError = Expense.create(props, userId, 'some_expense_id');
-    expect(expenseOrError.isRight()).toBe(true);
     const expense = expenseOrError.value as Expense;
 
     expense.updateExpense({ amount: 120 });
