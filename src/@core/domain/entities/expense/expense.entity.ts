@@ -86,7 +86,11 @@ export class Expense {
   > {
     const propsOrError = Expense.validateExpenseProps(props);
     if (propsOrError.isLeft()) return left(propsOrError.value);
-    return right(new Expense(props, userId, id));
+
+    const localDate = ExpenseDate.convertToLocale(props.date);
+    const expenseProps = { ...props, date: localDate };
+
+    return right(new Expense(expenseProps, userId, id));
   }
 
   public updateExpense(

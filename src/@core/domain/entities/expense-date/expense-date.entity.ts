@@ -18,4 +18,9 @@ export class ExpenseDate {
 
     return right(new ExpenseDate(date));
   }
+
+  public static convertToLocale(date: string) {
+    const insertedDate = new Date(date);
+    return insertedDate.toLocaleDateString();
+  }
 }
