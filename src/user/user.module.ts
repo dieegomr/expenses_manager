@@ -7,6 +7,7 @@ import { PasswordHashing } from 'src/@core/domain/interfaces/password-hashing.in
 import { BcryptPasswordHashing } from 'src/@core/infra/bcrypt/bcrypt-password-hashing';
 import { JwtTokenGenerator } from 'src/@core/infra/JWT/jwt-token-generator';
 import { GetUserByEmailUseCase } from 'src/@core/usecases/get-user-by-email.use-case';
+import { GetUserByIdUseCase } from 'src/@core/usecases/get-user-by-id.use-case';
 
 @Module({
   controllers: [UserController],
@@ -44,7 +45,14 @@ import { GetUserByEmailUseCase } from 'src/@core/usecases/get-user-by-email.use-
       },
       inject: [UserInMemoryRepository],
     },
+    {
+      provide: GetUserByIdUseCase,
+      useFactory: (userRepo: UserRepositoryInterface) => {
+        return new GetUserByIdUseCase(userRepo);
+      },
+      inject: [UserInMemoryRepository],
+    },
   ],
-  exports: [GetUserByEmailUseCase],
+  exports: [GetUserByEmailUseCase, GetUserByIdUseCase],
 })
 export class UserModule {}
