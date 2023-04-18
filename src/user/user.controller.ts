@@ -19,6 +19,7 @@ export class UserController {
     const output = await this.createUserUseCase.execute(createUserDto);
     if (output.isLeft())
       throw new HttpException(output.value.message, HttpStatus.BAD_REQUEST);
-    return output.value;
+
+    return { ...output.value, password: undefined };
   }
 }
