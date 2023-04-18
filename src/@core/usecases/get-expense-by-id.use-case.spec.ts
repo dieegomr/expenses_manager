@@ -1,8 +1,5 @@
 import { User } from '../domain/entities/user/user.entity';
-import {
-  EmailOptions,
-  EmailSender,
-} from '../domain/interfaces/email-sender.interface';
+
 import { ExpenseInMemoryRepository } from '../infra/expense-in-memory.repository';
 import { UserInMemoryRepository } from '../infra/user-in-memory.repository';
 import { CreateExpenseUseCase } from './create-expense.use-case';
@@ -12,15 +9,10 @@ import {
   GetExpenseByIdUseCase,
 } from './get-expense-by-id.use-case';
 import { GetUserByIdUseCase } from './get-user-by-id.use-case';
+import { FakeEmailSender } from './test-utils/fake-email-sender';
 
 describe('GetExpenseByIdUseCase Tests', function () {
   const makeTest = () => {
-    class FakeEmailSender implements EmailSender {
-      async sendEmail(options: EmailOptions) {
-        console.log(options);
-      }
-    }
-
     const fakeEmailSender = new FakeEmailSender();
     const expenseRepo = new ExpenseInMemoryRepository();
     const userRepo = new UserInMemoryRepository();
