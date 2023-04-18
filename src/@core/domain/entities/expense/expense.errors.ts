@@ -15,9 +15,3 @@ export class InvalidDescriptionError extends Error {
     super('An description must have a maximum of 191 character');
   }
 }
-
-export class InvalidUserIdError extends Error {
-  constructor() {
-    super('A valid user id must be provided');
-  }
-}
