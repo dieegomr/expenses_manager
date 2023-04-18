@@ -71,9 +71,6 @@ export class Expense {
       if (descriptionOrError.isLeft()) return left(descriptionOrError.value);
     }
 
-    if (props.id && typeof props.id !== 'string')
-      return left(new InvalidUserIdError());
-
     return right(props);
   }
   public static create(
