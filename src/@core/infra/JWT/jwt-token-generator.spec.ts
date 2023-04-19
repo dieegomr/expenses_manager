@@ -1,10 +1,13 @@
 import jwt from 'jsonwebtoken';
+import { JwtTokenGenerator } from './jwt-token-generator';
 
 describe('JWT Test', () => {
   const payload = { username: 'testuser' };
   const secret = 'mysecret';
   const token = jwt.sign(payload, secret);
-  it('should create a valid JWT', () => {
+  it('should create a valid JWT', async () => {
+    const tokenGenerator = new JwtTokenGenerator();
+    const token = await tokenGenerator.sign('userId');
     expect(token).toBeDefined();
     expect(typeof token).toBe('string');
   });
@@ -15,10 +18,10 @@ describe('JWT Test', () => {
     expect(decoded.username).toBe('testuser');
   });
 
-  it('should fail to verify an invalid JWT', () => {
+  it('should fail to verify an invalid JWT', async () => {
     const invalidToken = token.slice(0, -1) + 'A';
-    expect(() => {
-      jwt.verify(invalidToken, secret);
-    }).toThrow(jwt.JsonWebTokenError);
+    const jwt = new JwtTokenGenerator();
+    const result = await jwt.verify(invalidToken);
+    expect(result.message).toStrictEqual('Something wrong verifyng JWT');
   });
 });
