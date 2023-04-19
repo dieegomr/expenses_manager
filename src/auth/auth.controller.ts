@@ -1,7 +1,6 @@
 import { Request, Controller, Post, UseGuards } from '@nestjs/common';
-import { LoginUseCase } from 'src/@core/usecases/login.use-case';
+import { LoginUseCase } from '../@core/usecases/login.use-case';
 import { IsPublic } from './decorators/is-public.decorator';
-import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthRequest } from './models/auth-request';
 

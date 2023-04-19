@@ -6,8 +6,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { CreateUserUseCase } from 'src/@core/usecases/create-user.use-case';
-import { IsPublic } from 'src/auth/decorators/is-public.decorator';
+import { CreateUserUseCase } from '../@core/usecases/create-user.use-case';
+import { IsPublic } from '../auth/decorators/is-public.decorator';
 
 @Controller('user')
 export class UserController {

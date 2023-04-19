@@ -10,14 +10,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
-import { CreateExpenseUseCase } from 'src/@core/usecases/create-expense.use-case';
-import { EditExpenseUseCase } from 'src/@core/usecases/edit-expense.use-case';
-import { DeleteExpenseByIdUseCase } from 'src/@core/usecases/delete-expense.use-case';
-import { GetExpenseByIdUseCase } from 'src/@core/usecases/get-expense-by-id.use-case';
-import { GetAllExpensesUseCase } from 'src/@core/usecases/get-all-expense.use-case';
+import { CreateExpenseUseCase } from '../@core/usecases/create-expense.use-case';
+import { EditExpenseUseCase } from '../@core/usecases/edit-expense.use-case';
+import { DeleteExpenseByIdUseCase } from '../@core/usecases/delete-expense.use-case';
+import { GetExpenseByIdUseCase } from '../@core/usecases/get-expense-by-id.use-case';
+import { GetAllExpensesUseCase } from '../@core/usecases/get-all-expense.use-case';
 import { CreateExpenseDto } from './dto/create-expense.dto';
-import { CurrentUser } from 'src/auth/decorators/current-user-decorator';
-import { UserFromJwt } from 'src/auth/models/user-from-jwt';
+import { CurrentUser } from '../auth/decorators/current-user-decorator';
+import { UserFromJwt } from '../auth/models/user-from-jwt';
 
 @Controller('expenses')
 export class ExpensesController {

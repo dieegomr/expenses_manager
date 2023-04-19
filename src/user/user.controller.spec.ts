@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CreateUserUseCase } from '../@core/usecases/create-user.use-case';
 import { UserController } from './user.controller';
-import { UserService } from './user.service';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -8,7 +8,7 @@ describe('UserController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService],
+      providers: [CreateUserUseCase],
     }).compile();
 
     controller = module.get<UserController>(UserController);
