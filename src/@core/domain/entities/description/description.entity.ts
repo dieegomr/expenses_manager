@@ -18,7 +18,6 @@ export class Description {
     const MAX_DESCRIPTION_CHARACTERS = 191;
 
     if (text.length > MAX_DESCRIPTION_CHARACTERS) {
-      console.log('entrei', text.length);
       return left(new InvalidDescriptionError());
     }
 

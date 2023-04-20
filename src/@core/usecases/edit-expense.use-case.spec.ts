@@ -84,7 +84,6 @@ describe('EditExpenseUseCase Tests', function () {
     );
 
     const expense = expenseOrError.value as ExpenseOutput;
-    console.log(expense);
 
     const editedExpenseOrError = await editExpenseUseCase.execute(
       expense.id,

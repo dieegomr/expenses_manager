@@ -7,8 +7,6 @@ describe('Email Tests', () => {
     const emailOrError = Email.create(emailTest);
     const error = emailOrError.value as Error;
 
-    console.log(emailOrError.value);
-
     expect(error.message).toStrictEqual(`The email ${emailTest} is invalid`);
   });
 
@@ -17,8 +15,6 @@ describe('Email Tests', () => {
 
     const emailOrError = Email.create(emailTest);
     const email = emailOrError.value as Email;
-
-    console.log(emailOrError.value);
 
     expect(email.value).toStrictEqual(emailTest);
   });
