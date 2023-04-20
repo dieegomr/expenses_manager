@@ -6,7 +6,6 @@ import {
   InvalidAmountError,
   InvalidDateError,
   InvalidDescriptionError,
-  InvalidUserIdError,
 } from './expense.errors';
 
 export type ExpenseProps = {
@@ -50,10 +49,7 @@ export class Expense {
   public static validateExpenseProps(
     props: ValidationExpenseProps,
   ): Either<
-    | InvalidAmountError
-    | InvalidDateError
-    | InvalidDescriptionError
-    | InvalidUserIdError,
+    InvalidAmountError | InvalidDateError | InvalidDescriptionError,
     ValidationExpenseProps
   > {
     if (props.amount) {
